@@ -63,8 +63,9 @@
 					}
 				);
 			};
-			provider.options.attribution = attributionReplacer(provider.options.attribution);
-
+			if (provider.options.attribution) {
+				provider.options.attribution = attributionReplacer(provider.options.attribution);
+			}
 			// Compute final options combining provider options with any user overrides
 			var layerOpts = L.Util.extend({}, provider.options, options);
 			L.TileLayer.prototype.initialize.call(this, provider.url, layerOpts);
@@ -1125,10 +1126,39 @@
 				Color: 'web',
 				Grey: 'web_grau'
 			}
+		},
+		OpenFreeMap: {
+			url: 'https://tiles.openfreemap.org/styles/{variant}',
+			type: 'vector',
+			options: {
+				variant: 'liberty'
+			},
+			variants: {
+				Positron: 'positron',
+				Bright: 'bright',
+				Liberty: 'liberty',
+				Dark: 'dark',
+				Fiord: 'fiord'
+			}
 		}
 	};
 
 	L.tileLayer.provider = function(provider, options) {
+		var parts = provider.split('.');
+		var providerName = parts[0];
+		var providerDef = L.TileLayer.Provider.providers[providerName];
+
+		if (providerDef && providerDef.type === 'vector') {
+			if (!L.maplibreGL) {
+				throw 'maplibre-gl-leaflet is required for vector tile providers. ' +
+				'See https://github.com/maplibre/maplibre-gl-leaflet';
+			}
+			var layer = new L.TileLayer.Provider(provider, options);
+			return L.maplibreGL({
+				style: L.Util.template(layer._url, layer.options),
+				attribution: layer.options.attribution
+			});
+		}
 		return new L.TileLayer.Provider(provider, options);
 	};
 
