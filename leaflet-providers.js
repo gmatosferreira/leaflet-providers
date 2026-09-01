@@ -1140,6 +1140,32 @@
 				Dark: 'dark',
 				Fiord: 'fiord'
 			}
+		},
+		StadiaVector: {
+			url: 'https://tiles.stadiamaps.com/styles/{variant}.json',
+			type: 'vector',
+			options: {
+				variant: 'alidade_smooth'
+			},
+			variants: {
+				AlidadeSmooth: 'alidade_smooth',
+				AlidadeSmoothDark: 'alidade_smooth_dark',
+				AlidadeSatellite: 'alidade_satellite',
+				OSMBright: 'osm_bright',
+				Outdoors: 'outdoors',
+				StamenToner: 'stamen_toner',
+				StamenTonerBackground: 'stamen_toner_background',
+				StamenTonerLines: 'stamen_toner_lines',
+				StamenTonerLabels: 'stamen_toner_labels',
+				StamenTonerLite: 'stamen_toner_lite',
+				StamenTonerDark: 'stamen_toner_dark',
+				StamenTonerBlacklite: 'stamen_toner_blacklite',
+				StamenWatercolor: 'stamen_watercolor',
+				StamenTerrain: 'stamen_terrain',
+				StamenTerrainBackground: 'stamen_terrain_background',
+				StamenTerrainLabels: 'stamen_terrain_labels',
+				StamenTerrainLines: 'stamen_terrain_lines'
+			}
 		}
 	};
 

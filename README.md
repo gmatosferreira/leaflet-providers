@@ -146,7 +146,7 @@ L.tileLayer.provider('TomTom', {
 
 ### Stadia Maps
 
-In order to use Stadia maps, you must [register](https://client.stadiamaps.com/signup/). Once registered, you can whitelist your domain within your account settings.
+In order to use Stadia maps (providers Stadia and StadiaVector), you must [register](https://client.stadiamaps.com/signup/). Once registered, you can whitelist your domain within your account settings.
 
 #### Stamen Design
 
