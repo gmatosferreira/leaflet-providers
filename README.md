@@ -148,6 +148,16 @@ L.tileLayer.provider('TomTom', {
 
 In order to use Stadia maps (providers Stadia and StadiaVector), you must [register](https://client.stadiamaps.com/signup/). Once registered, you can whitelist your domain within your account settings.
 
+### Protomaps
+
+In order to use Protomaps vector tiles, you must [register](https://protomaps.com/). Once registered, get your API key from your dashboard, which you have to pass to `L.tileLayer.provider` in the options (or embed in the URL):
+
+```JavaScript
+L.tileLayer.provider('Protomaps.Light', {
+    apiKey: '<insert key here>'
+}).addTo(map);
+```
+
 #### Stamen Design
 
 As of July 31, 2023, Stamen's map styles are now hosted by [Stadia Maps](#stadia-maps). You can read the full

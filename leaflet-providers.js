@@ -1166,6 +1166,21 @@
 				StamenTerrainLabels: 'stamen_terrain_labels',
 				StamenTerrainLines: 'stamen_terrain_lines'
 			}
+		},
+		Protomaps: {
+			url: 'https://api.protomaps.com/styles/v5/{variant}/en.json?key={apiKey}',
+			type: 'vector',
+			options: {
+				variant: 'light',
+				apiKey: '<insert your API key here>'
+			},
+			variants: {
+				Light: 'light',
+				Dark: 'dark',
+				White: 'white',
+				Grayscale: 'grayscale',
+				Black: 'black'
+			}
 		}
 	};
 
