@@ -184,10 +184,17 @@
 			var pre = L.DomUtil.create('pre', null, container);
 			var code = L.DomUtil.create('code', 'javascript', pre);
 
+			var depsVectorHeading = L.DomUtil.create('h4', '', container);
+			var depsVectorP = L.DomUtil.create('p', '', container);
+			var depsVectorPre = L.DomUtil.create('pre', '', container);
+			var depsVectorCode = L.DomUtil.create('code', '', depsVectorPre);
+			depsVectorHeading.style.display = depsVectorP.style.display = depsVectorPre.style.display = 'none';
+
 			var update = function(event) {
 				code.innerHTML = '';
 
 				var names = [];
+				var depsVector = null;
 
 				// loop over the layers in the map and add the JS
 				for (var key in map._layers) {
@@ -204,8 +211,28 @@
 						name: layer._providerName
 					}));
 					code.innerHTML += layer.getExampleJS();
+					if (layer._depsVector) {
+						depsVector = layer._depsVector;
+					}
 				}
 				providerNames.innerHTML = names.join(', ');
+
+				// Show / hide the extra dependencies warning section
+				if (depsVector) {
+					var depLinks = depsVector.map(function (d) {
+						return '<a href="' + d.url + '" target="_blank">' + d.name + '</a>';
+					}).join(' and ');
+					depsVectorHeading.innerHTML = '⚠ Extra dependencies required';
+					depsVectorP.innerHTML = 'This provider uses vector tiles and requires ' + depLinks + '.' +
+						' Include these <strong>before</strong> <code>leaflet-providers.js</code>:';
+					depsVectorCode.innerHTML =
+						'&lt;link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet" /&gt;\n' +
+						'&lt;script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"&gt;&lt;/script&gt;\n' +
+						'&lt;script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"&gt;&lt;/script&gt;';
+					depsVectorHeading.style.display = depsVectorP.style.display = depsVectorPre.style.display = '';
+				} else {
+					depsVectorHeading.style.display = depsVectorP.style.display = depsVectorPre.style.display = 'none';
+				}
 
 				/* global hljs:true */
 				hljs.highlightBlock(code);
